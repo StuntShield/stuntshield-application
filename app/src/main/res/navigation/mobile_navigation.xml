@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.geby.stuntshield.ui.analyze.AnalyzeFragment"
+        android:name="com.geby.stuntshield.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_analyze" />
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_analyze"
-        android:name="com.geby.stuntshield.ui.home.HomeFragment"
+        android:name="com.geby.stuntshield.ui.analyze.AnalyzeFragment"
         android:label="@string/title_analyze"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_analyze" />
 
     <fragment
         android:id="@+id/navigation_profile"
