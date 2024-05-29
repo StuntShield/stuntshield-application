@@ -1,4 +1,4 @@
-package com.geby.stuntshield
+package com.geby.stuntshield.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.geby.stuntshield.R
 import com.geby.stuntshield.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
