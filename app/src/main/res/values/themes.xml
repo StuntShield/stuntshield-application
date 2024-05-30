@@ -3,6 +3,16 @@
     <style name="Theme.StuntShield" parent="Theme.Material3.DayNight">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/light_primary_color</item>
+        <item name="android:fontFamily">@font/poppins</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="basicText">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="basicText.bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

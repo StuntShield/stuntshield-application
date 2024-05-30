@@ -3,4 +3,13 @@
     <style name="Theme.StuntShield" parent="Theme.Material3.DayNight">
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="basicText">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="basicText.bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

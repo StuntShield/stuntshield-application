@@ -14,4 +14,5 @@
     <string name="title_home">Home</string>
     <string name="title_analyze">Analyze</string>
     <string name="title_profile">Profile</string>
+    <string name="height">Height</string>
 </resources>
