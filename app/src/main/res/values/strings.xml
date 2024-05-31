@@ -15,4 +15,12 @@
     <string name="title_analyze">Analyze</string>
     <string name="title_profile">Profile</string>
     <string name="height">Height</string>
+    <string name="tv_login">Login</string>
+    <string name="tv_email">Email</string>
+    <string name="supporting_image">supporting_image</string>
+    <string name="hint_password">Password</string>
+    <string name="login_message">Silahkan login dengan akun</string>
+    <string name="tv_register">Register</string>
+    <string name="message2">Belum punya akun?</string>
+    <string name="tv_password">Password</string>
 </resources>

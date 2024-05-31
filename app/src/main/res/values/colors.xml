@@ -5,4 +5,6 @@
     <color name="light_primary_color">#9059B1</color>
     <color name="border_color">#DEE8F5</color>
     <color name="red">#DA0000</color>
+    <color name="pink">#FFB6E6</color>
+    <color name="blue">#4285F4</color>
 </resources>
