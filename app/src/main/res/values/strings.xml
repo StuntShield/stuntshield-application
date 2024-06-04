@@ -23,7 +23,10 @@
     <string name="tv_register">Register</string>
     <string name="message2">Belum punya akun?</string>
     <string name="tv_password">Password</string>
+    <string name="register_message">Lengkapi data di bawah ini</string>
+    <string name="hint_username">Username</string>
 
     <string name="login_failed_title">Login Gagal</string>
     <string name="login_failed_msg">Email atau password salah. Silahkan coba lagi</string>
+    <string name="welcome_message">Welcome to</string>
 </resources>

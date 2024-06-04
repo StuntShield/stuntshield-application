@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
 
         val options = FirebaseOptions.Builder()
             .setApiKey("AIzaSyAs_cmapQSa7T9Ovu5rbqScJCDtRxh12F4")
-            .setApplicationId("stunshield-application")
+            .setApplicationId("stunshield")
             .build()
 
         if (FirebaseApp.getApps(this).isEmpty()) {
