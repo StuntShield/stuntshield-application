@@ -3,22 +3,21 @@ package com.geby.stuntshield.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.geby.stuntshield.R
 import com.geby.stuntshield.databinding.ActivityRegisterBinding
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.userProfileChangeRequest
-import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private lateinit var auth: FirebaseAuth
+    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +34,39 @@ class RegisterActivity : AppCompatActivity() {
             FirebaseApp.initializeApp(this, options)
         }
 
+        register()
+
+        authViewModel.authResult.observe(this) { result ->
+            result.onSuccess { user ->
+                Log.d("Register", "Register berhasil")
+                AlertDialog.Builder(this).apply {
+                    setTitle(getString(R.string.register_success_title))
+                    setMessage(getString(R.string.register_success_msg))
+                    setPositiveButton("OK") { _, _ ->
+                        updateUi(user)
+                    }
+                    create()
+                    show()
+                }
+            }
+            result.onFailure { exception ->
+                Log.w("Register", "Register gagal")
+                AlertDialog.Builder(this).apply {
+                    setTitle(getString(R.string.register_failed_title))
+                    setMessage(exception.message)
+                    setPositiveButton("OK") { _, _ -> }
+                    create()
+                    show()
+                }
+            }
+
+            authViewModel.isLoading.observe(this) {
+                showLoading(it)
+            }
+        }
+    }
+
+    private fun register() {
         with(binding) {
             registerButton.setOnClickListener {
                 val username = usernameEditText.text.toString()
@@ -42,75 +74,28 @@ class RegisterActivity : AppCompatActivity() {
                 val password = passwordEditText.text.toString()
 
                 if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-                    setupAction(username, email, password)
+                    authViewModel.registerUser(username, email, password)
                 } else {
-                    Log.d("Register Activity", "Semua data harus diisi")
-                }
-            }
-
-        }
-    }
-
-    private fun setupAction(username: String, email: String, password: String) {
-        try {
-            auth = Firebase.auth
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Log.d("Register Activity", "Account Created Susscessfully")
-                    AlertDialog.Builder(this).apply {
-                        setTitle("Register Berhasil")
-                        setMessage("Akun Anda berhasil dibuat. Silahkan login")
-                        setPositiveButton("OK") { _, _ ->
-                            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                            startActivity(intent)
-                        }
-                        create()
-                        show()
-                    }
-                    val user = auth.currentUser
-                    updateProfile(user, username)
-                } else {
-                    Log.w("Register Activity", "Failed created account", task.exception)
-                    Toast.makeText(
-                        baseContext,
-                        "Register gagal",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        } catch (e: Exception) {
-            Log.e("Register Activity", "Error in setupAction", e)
-        }
-    }
-
-    private fun updateProfile(user: FirebaseUser?, username: String) {
-        user?.let {
-            val profileUpdate = userProfileChangeRequest {
-                displayName = username
-                Log.d("Register Activity", "Username $username")
-            }
-            it.updateProfile(profileUpdate).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d("RegisterActivity", "User profile updated.")
-//                    updateUi(user)
-                } else {
-                    Log.w("RegisterActivity", "updateProfile:failure", task.exception)
+                    Toast.makeText(this@RegisterActivity, "Semua data tidak boleh kosong", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
-//    private fun updateUi(user: FirebaseUser?) {
-//        if (user != null) {
-//            try {
-//                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-//                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                startActivity(intent)
-//                finish()
-//            } catch (e: Exception) {
-//                Log.e("Register Activity", "Error in updateUi")
-//            }
-//        }
-//    }
+    private fun updateUi(user: FirebaseUser?) {
+        if (user != null) {
+            try {
+                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            } catch (e: Exception) {
+                Log.e("Register", "Error saat updateUi", e)
+            }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
 }

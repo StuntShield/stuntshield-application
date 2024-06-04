@@ -3,22 +3,22 @@ package com.geby.stuntshield.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.geby.stuntshield.MainActivity
 import com.geby.stuntshield.R
 import com.geby.stuntshield.databinding.ActivityLoginBinding
-import com.google.firebase.Firebase
+import com.geby.stuntshield.ui.MainActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.auth
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var firebaseAuth: FirebaseAuth
+    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +35,26 @@ class LoginActivity : AppCompatActivity() {
             FirebaseApp.initializeApp(this, options)
         }
 
-        firebaseAuth = Firebase.auth
+        authViewModel.authResult.observe(this) { result ->
+            result.onSuccess { user ->
+                Log.d("Login", "Login dengan email ${user?.email} berhasil")
+                updateUI(user)
+            }.onFailure {
+                AlertDialog.Builder(this).apply {
+                    setTitle(getString(R.string.login_failed_title))
+                    setMessage(getString(R.string.login_failed_msg))
+                    setPositiveButton("OK") { _, _ -> }
+                    create()
+                    show()
+                }
+            }
+        }
+
         loginUser()
+
+        authViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
     }
 
     private fun loginUser() {
@@ -44,35 +62,11 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                setupAction(email, password)
+                authViewModel.loginUser(email, password)
             } else {
-                Log.d("LoginActivity", "Email or Password is empty")
+                Toast.makeText(this, "Email atau Password tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun setupAction(email: String, password: String) {
-       try {
-           firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
-               if (task.isSuccessful) {
-                   Log.d("LoginActivity", "LogInWithEmail: Success")
-                   val user = firebaseAuth.currentUser
-                   updateUI(user)
-               } else {
-                   Log.w("LoginActivity", "LogInWithEmail: Failure", task.exception)
-                   AlertDialog.Builder(this).apply {
-                       setTitle(getString(R.string.login_failed_title))
-                       setMessage(getString(R.string.login_failed_msg))
-                       setPositiveButton("OK") { _, _ ->
-                       }
-                       create()
-                       show()
-                   }
-               }
-           }
-       } catch (e: Exception) {
-           Log.e("LoginActivity", "Error in setupAction", e)
-       }
     }
 
     private fun updateUI(user: FirebaseUser?) {
@@ -86,5 +80,9 @@ class LoginActivity : AppCompatActivity() {
                 Log.e("LoginActivity", "Error in updateUI", e)
             }
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }
