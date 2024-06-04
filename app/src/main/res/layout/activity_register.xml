@@ -88,6 +88,8 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_border"
         android:hint="@string/tv_email"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
         android:padding="14dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
