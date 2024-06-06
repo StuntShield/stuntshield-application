@@ -54,4 +54,11 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
+
+    // retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
 }
