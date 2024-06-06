@@ -10,6 +10,7 @@ interface ApiService {
     @Multipart
     @POST("prediction")
     suspend fun analyzeData(
+        @Part("year") year: RequestBody,
         @Part("month") month: RequestBody,
         @Part("day") day: RequestBody,
         @Part("jenis_kelamin") jenis_kelamin: RequestBody,
