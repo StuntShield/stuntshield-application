@@ -26,6 +26,9 @@
     <string name="register_message">Lengkapi data di bawah ini</string>
     <string name="hint_username">Username</string>
 
+    <string name="invalid_email">Format Email tidak Valid</string>
+    <string name="invalid_password">Password tidak boleh kurang dari 8 karakter</string>
+    
     <string name="login_failed_title">Login Gagal</string>
     <string name="login_success_title">Login Berhasil</string>
     <string name="register_failed_title">Register Gagal</string>
