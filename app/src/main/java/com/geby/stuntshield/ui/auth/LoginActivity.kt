@@ -8,9 +8,14 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.geby.stuntshield.R
+import com.geby.stuntshield.data.local.pref.UserPreference
+import com.geby.stuntshield.data.local.pref.dataStore
 import com.geby.stuntshield.databinding.ActivityLoginBinding
 import com.geby.stuntshield.ui.MainActivity
+import com.geby.stuntshield.ui.MainViewModel
+import com.geby.stuntshield.ui.ViewModelFactory
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.auth.FirebaseUser
@@ -26,6 +31,9 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val pref = UserPreference.getInstance(application.dataStore)
+        val preferenceViewModel = ViewModelProvider(this, ViewModelFactory(pref))[MainViewModel::class.java]
+
         val options = FirebaseOptions.Builder()
             .setApiKey("AIzaSyAs_cmapQSa7T9Ovu5rbqScJCDtRxh12F4")
             .setApplicationId("stunshield")
@@ -37,6 +45,9 @@ class LoginActivity : AppCompatActivity() {
 
         authViewModel.authResult.observe(this) { result ->
             result.onSuccess { user ->
+                if (user != null) {
+                    preferenceViewModel.saveUserId(user.uid)
+                }
                 Log.d("Login", "Login dengan email ${user?.email} berhasil")
                 updateUI(user)
             }.onFailure {

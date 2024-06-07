@@ -56,18 +56,29 @@ class AnalyzeFragment : Fragment() {
     private fun setupGenderSelection() {
         binding.boyCv.setOnClickListener {
             selectedGender = "laki-laki"
+            it.isSelected = true
+            binding.girlCv.isSelected = false
             Toast.makeText(requireContext(), "Boy selected", Toast.LENGTH_SHORT).show()
         }
 
         binding.girlCv.setOnClickListener {
             selectedGender = "perempuan"
+            it.isSelected = true
+            binding.boyCv.isSelected = false
             Toast.makeText(requireContext(), "Girl selected", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun selectGender(selectedGender: String?) {
+        binding.boyCv.isSelected = selectedGender == "laki-laki"
+        binding.girlCv.isSelected = selectedGender == "perempuan"
+    }
+
     private fun uploadData() {
         val inputYear = binding.etYears.text.toString()
         val inputMonth = binding.etMonths.text.toString()
         val inputDay = binding.etDays.text.toString()
+        val inputWeight = binding.etWeight.text.toString()
         val inputHeight = binding.etHeight.text.toString()
 
         val yearBody = inputYear.toRequestBody("text/plain".toMediaType())
@@ -76,18 +87,15 @@ class AnalyzeFragment : Fragment() {
         val genderBody = selectedGender?.toRequestBody("text/plain".toMediaType())
         val heightBody = inputHeight.toRequestBody("text/plain".toMediaType())
 
-
         lifecycleScope.launch {
             try {
                 val apiService = ApiConfig().getApiService()
                 val successResponse = apiService.analyzeData(yearBody, monthBody, dayBody, genderBody!!, heightBody)
 
                 Log.d("AnalyzeFragment", "Server response: $successResponse")
-
-                val intent = Intent(requireContext(), ResultActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                requireActivity().finish()
+                val predict = successResponse.data?.jsonMemberClass.toString()
+                val confidenceScore = successResponse.data?.presentase.toString()
+                goToResult(selectedGender.toString(), "$inputYear tahun, $inputMonth bulan, $inputDay hari", inputWeight, inputHeight, predict, "$confidenceScore%")
             } catch (e: JsonSyntaxException) {
                 Log.e("AnalyzeFragment", "JSON parsing error", e)
                 showToast("Invalid response format")
@@ -96,6 +104,20 @@ class AnalyzeFragment : Fragment() {
                 showToast(e.localizedMessage ?: "Unknown error occurred")
             }
         }
+    }
+
+    private fun goToResult(gender: String, age: String, weight: String, height: String, predict: String, confidenceScore: String) {
+        val intent = Intent(requireContext(), ResultActivity::class.java).apply {
+            putExtra("gender", gender)
+            putExtra("age", age)
+            putExtra("weight", weight)
+            putExtra("height", height)
+            putExtra("predict", predict)
+            putExtra("confidenceScore", confidenceScore)
+        }
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun showToast(message: String) {
