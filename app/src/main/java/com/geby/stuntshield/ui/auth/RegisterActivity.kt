@@ -64,6 +64,8 @@ class RegisterActivity : AppCompatActivity() {
                 showLoading(it)
             }
         }
+
+
     }
 
     private fun register() {
