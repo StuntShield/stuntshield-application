@@ -9,7 +9,6 @@ import com.google.firebase.auth.UserProfileChangeRequest
 
 class AuthViewModel : ViewModel() {
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-
     private val _authResult = MutableLiveData<Result<FirebaseUser?>>()
     val authResult: LiveData<Result<FirebaseUser?>> get() = _authResult
 
