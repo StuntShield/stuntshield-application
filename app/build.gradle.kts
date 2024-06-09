@@ -55,9 +55,11 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     // firebase
+    // firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
+    implementation(libs.firebase.auth.ktx)
 
     // retrofit
     implementation(libs.retrofit)

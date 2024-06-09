@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,8 @@ import com.geby.stuntshield.databinding.ActivityLoginBinding
 import com.geby.stuntshield.ui.MainActivity
 import com.geby.stuntshield.ui.MainViewModel
 import com.geby.stuntshield.ui.ViewModelFactory
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.auth.FirebaseUser
@@ -36,11 +39,32 @@ class LoginActivity : AppCompatActivity() {
 
         val options = FirebaseOptions.Builder()
             .setApiKey("AIzaSyAs_cmapQSa7T9Ovu5rbqScJCDtRxh12F4")
-            .setApplicationId("stunshield")
+            .setApplicationId("stuntshield")
             .build()
 
         if (FirebaseApp.getApps(this).isEmpty()) {
             FirebaseApp.initializeApp(this, options)
+        }
+
+        authViewModel.configureGoogleSignIn(this)
+
+        val googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                try {
+                    val account = task.getResult(ApiException::class.java)!!
+                    Log.d("RegisterActivity", "firebaseAuthWithGoogle:" + account.id)
+                    authViewModel.signInWithGoogle(account)
+                } catch (e: ApiException) {
+                    Log.w("RegisterActivity", "Google sign in failed", e)
+                    Toast.makeText(this, "Login dengan Google gagal: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
+        binding.buttonGoogle.setOnClickListener {
+            val signInIntent = authViewModel.getGoogleSignInClient().signInIntent
+            googleSignInLauncher.launch(signInIntent)
         }
 
         authViewModel.authResult.observe(this) { result ->
