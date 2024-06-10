@@ -15,7 +15,6 @@
         android:theme="@style/Theme.StuntShield"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
             android:name=".ui.splashscreen.SplashScreenActivity"
             android:exported="true" >
             <intent-filter>
@@ -23,47 +22,23 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-=======
-            android:name=".ui.welcome.WelcomeActivity"
-            android:exported="true">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!--  -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
->>>>>>> google_auth
         </activity>
         <activity
             android:name=".ui.welcome.WelcomeActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ui.auth.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.LoginActivity"
-<<<<<<< HEAD
             android:exported="false" />
-=======
-            android:exported="false"></activity>
->>>>>>> google_auth
         <activity
             android:name=".ui.result.ResultActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true"
-<<<<<<< HEAD
-            android:label="@string/app_name" />
-=======
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
->>>>>>> google_auth
     </application>
 
 </manifest>

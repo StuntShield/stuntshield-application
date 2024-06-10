@@ -127,6 +127,7 @@
         android:background="@drawable/button_view"
         android:text="@string/tv_login"
         android:textFontWeight="600"
+        android:foreground="?attr/selectableItemBackground"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
