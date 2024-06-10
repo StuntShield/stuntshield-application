@@ -38,4 +38,14 @@
     <string name="register_failed_msg">Email ini sudah terdaftar di akun lain</string>
     <string name="register_success_msg">Akun ada berhasil dibuat. Silahkan login</string>
     <string name="welcome_message">Welcome to</string>
+
+    fragment home
+    <string name="user_avatar">User Avatar</string>
+    <string name="username">Username</string>
+    <string name="total_analysis">Total analysis :</string>
+    <string name="history_count">3 Stunting | 1 Normal</string>
+    <string name="tv_rvInfo">Informasi terkait Stunting</string>
+    <string name="article_title">Judul Artikel</string>
+    <string name="article_preview">Preview Artikel</string>
+
 </resources>
