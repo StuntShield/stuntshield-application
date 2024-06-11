@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
@@ -64,13 +65,16 @@
                     android:textColor="@android:color/black" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/profile_image"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+            <ImageButton
+                android:id="@+id/btn_img_profile"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginEnd="8dp"
                 android:contentDescription="@string/user_avatar"
-                android:src="@drawable/ic_profile" />
+                android:src="@drawable/ic_profile"
+                app:shapeAppearance="@style/circular"
+                app:strokeWidth="2dp"
+                android:scaleType="centerCrop"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -95,5 +99,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_rvInfo"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

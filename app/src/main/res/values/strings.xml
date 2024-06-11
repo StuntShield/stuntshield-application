@@ -39,7 +39,6 @@
     <string name="register_success_msg">Akun ada berhasil dibuat. Silahkan login</string>
     <string name="welcome_message">Welcome to</string>
 
-    fragment home
     <string name="user_avatar">User Avatar</string>
     <string name="username">Username</string>
     <string name="total_analysis">Total analysis :</string>
@@ -47,5 +46,10 @@
     <string name="tv_rvInfo">Informasi terkait Stunting</string>
     <string name="article_title">Judul Artikel</string>
     <string name="article_preview">Preview Artikel</string>
+    <string name="profile_picture">Provile Picture User</string>
+    <string name="created_date">Created Date at 30 Desember 2024</string>
+    <string name="title_profile_page">My Profile</string>
+    <string name="logout">Logout</string>
+    <string name="edit_pict">Edit Pict</string>
 
 </resources>
