@@ -20,6 +20,9 @@ class HomeViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _isError = MutableLiveData<Boolean>()
+    val isError: LiveData<Boolean> = _isError
+
     companion object{
         private const val TAG = "HomeViewModel"
     }
@@ -28,8 +31,9 @@ class HomeViewModel : ViewModel() {
         showArticleList()
     }
 
-    private fun showArticleList() {
+    fun showArticleList() {
         _isLoading.value = true
+        _isError.value = false
         val item = ApiConfig().getApiService(BuildConfig.ARTICLE_API).getArticles()
         item.enqueue(object : Callback<ArticleResponse> {
             override fun onResponse(call: Call<ArticleResponse>,
@@ -39,11 +43,13 @@ class HomeViewModel : ViewModel() {
                 if (response.isSuccessful) {
                  _listArticle.value = response.body()?.results as List<ResultsItem>
                 } else {
+                    _isError.value = true
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
             override fun onFailure(call: Call<ArticleResponse>, t: Throwable) {
                 _isLoading.value = false
+                _isError.value = true
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })

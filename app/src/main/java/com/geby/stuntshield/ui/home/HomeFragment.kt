@@ -35,6 +35,14 @@ class HomeFragment : Fragment() {
             showLoading(it)
         }
 
+        homeViewModel.isError.observe(viewLifecycleOwner) { isError ->
+            binding.retryButton.visibility = if (isError) View.VISIBLE else View.GONE
+        }
+
+        binding.retryButton.setOnClickListener {
+            homeViewModel.showArticleList()
+        }
+
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvArticles.layoutManager = layoutManager
 
