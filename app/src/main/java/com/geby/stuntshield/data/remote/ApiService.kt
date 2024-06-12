@@ -1,7 +1,10 @@
 package com.geby.stuntshield.data.remote
 
 import com.geby.stuntshield.data.response.AnalyzeResponse
+import com.geby.stuntshield.data.response.ArticleResponse
 import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -16,4 +19,7 @@ interface ApiService {
         @Part("jenis_kelamin") jenis_kelamin: RequestBody,
         @Part("tinggi_badan") tinggi_badan: RequestBody
     ): AnalyzeResponse
+
+    @GET("articles")
+    fun getArticles(): Call<ArticleResponse>
 }

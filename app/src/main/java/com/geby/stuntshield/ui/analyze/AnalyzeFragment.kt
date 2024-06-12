@@ -89,7 +89,7 @@ class AnalyzeFragment : Fragment() {
 
         lifecycleScope.launch {
             try {
-                val apiService = ApiConfig().getApiService()
+                val apiService = ApiConfig().getApiService("https://api-model-u6viyjhgqa-uc.a.run.app/")
                 val successResponse = apiService.analyzeData(yearBody, monthBody, dayBody, genderBody!!, heightBody)
 
                 Log.d("AnalyzeFragment", "Server response: $successResponse")

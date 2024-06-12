@@ -1,5 +1,4 @@
 package com.geby.stuntshield.ui.auth
-
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -24,7 +23,6 @@ import com.google.firebase.FirebaseOptions
 import com.google.firebase.auth.FirebaseUser
 
 class LoginActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityLoginBinding
     private val authViewModel: AuthViewModel by viewModels()
 

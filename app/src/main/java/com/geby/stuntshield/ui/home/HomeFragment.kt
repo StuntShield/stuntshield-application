@@ -1,54 +1,59 @@
 package com.geby.stuntshield.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.geby.stuntshield.data.ArticleAdapter
+import com.geby.stuntshield.data.response.ResultsItem
 import com.geby.stuntshield.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var homeViewModel: HomeViewModel
-//    private  lateinit var articleAdapter: ArticleAdapter
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private val homeViewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val sharedPref = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
 
-//        setupRecyclerView()
+        homeViewModel.listArticle.observe(viewLifecycleOwner) { item ->
+            setArticleList(item)
+        }
+        homeViewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
 
-//        homeViewModel.articles.observe(viewLifecycleOwner, Observer {
-//            articleAdapter.submitlist(it)
-//        })
-//        return root
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.rvArticles.layoutManager = layoutManager
+
+        return root
     }
 
-//    private fun setupRecyclerView() {
-//        articleAdapter = ArticleAdapter()
-//        binding.recyclerViewArticles.apply {
-//            layoutManager = LinearLayoutManager(context)
-//            adapter = articleAdapter
-//        }
-//    }
+    private fun setArticleList(items: List<ResultsItem>) {
+        val adapter = ArticleAdapter()
+        adapter.submitList(items)
+        binding.rvArticles.adapter = adapter
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }

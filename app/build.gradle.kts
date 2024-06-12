@@ -15,6 +15,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "ARTICLE_API", "\"https://stuntshield-v1-u6viyjhgqa-uc.a.run.app/\"")
     }
 
     buildTypes {
@@ -32,6 +33,8 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
+
     }
 }
 
@@ -49,12 +52,13 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.glide)
+
 
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
-    // firebase
     // firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
