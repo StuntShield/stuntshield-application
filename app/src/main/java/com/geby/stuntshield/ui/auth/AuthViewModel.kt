@@ -18,9 +18,11 @@ import com.google.firebase.auth.UserProfileChangeRequest
 class AuthViewModel : ViewModel() {
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var googleSignInClient: GoogleSignInClient
+    val Req_Code: Int = 123
 
     private val _authResult = MutableLiveData<Result<FirebaseUser?>>()
     val authResult: LiveData<Result<FirebaseUser?>> get() = _authResult
+
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
