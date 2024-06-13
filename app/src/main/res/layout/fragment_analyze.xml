@@ -1,277 +1,295 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.analyze.AnalyzeFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.02" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.08" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.92" />
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/boy_cv"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/card_result"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="2dp"
-        app:cardMaxElevation="4dp"
-        app:layout_constraintStart_toStartOf="@+id/gl_left"
-        app:layout_constraintTop_toTopOf="@+id/gl_top">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="93dp"
-                android:layout_height="108dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/boy_image" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="8dp"
-                android:text="@string/boy" />
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/girl_cv"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/card_result"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="2dp"
-        app:cardMaxElevation="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/gl_right"
-        app:layout_constraintTop_toTopOf="@+id/gl_top">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="93dp"
-                android:layout_height="108dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/girl_image" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="8dp"
-                android:text="@string/girl" />
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="190dp" />
-
-    <TextView
-        android:id="@+id/tv_age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/age"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/gl_right"
-        app:layout_constraintStart_toStartOf="@+id/gl_left"
-        app:layout_constraintTop_toTopOf="@+id/gl_input" />
-
-    <EditText
-        android:id="@+id/et_years"
-        android:layout_width="90dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:background="@drawable/edit_text_border"
-        app:layout_constraintStart_toStartOf="@+id/gl_left"
-        app:layout_constraintTop_toBottomOf="@+id/tv_age"
-        android:inputType="number"
-
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/tv_years"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/tv_years"
-        app:layout_constraintEnd_toEndOf="@+id/et_years"
-        app:layout_constraintStart_toStartOf="@+id/gl_left"
-        app:layout_constraintTop_toBottomOf="@+id/et_years" />
-
-    <EditText
-        android:id="@+id/et_months"
-        android:layout_width="90dp"
-        android:layout_height="40dp"
-        android:background="@drawable/edit_text_border"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="@+id/et_years"
-        app:layout_constraintEnd_toStartOf="@+id/et_days"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toEndOf="@+id/et_years"
-        app:layout_constraintTop_toTopOf="@+id/et_years"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/tv_months"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/tv_months"
-        app:layout_constraintEnd_toEndOf="@+id/et_months"
-        app:layout_constraintStart_toStartOf="@+id/et_months"
-        app:layout_constraintTop_toBottomOf="@+id/et_months" />
-
-    <EditText
-        android:id="@+id/et_days"
-        android:layout_width="90dp"
-        android:layout_height="40dp"
-        android:background="@drawable/edit_text_border"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="@+id/et_years"
-        app:layout_constraintEnd_toStartOf="@+id/gl_right"
-        app:layout_constraintTop_toTopOf="@+id/et_years"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/tv_days"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/tv_days"
-        app:layout_constraintEnd_toStartOf="@+id/gl_right"
-        app:layout_constraintStart_toStartOf="@+id/et_days"
-        app:layout_constraintTop_toBottomOf="@+id/et_days" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_input2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="340dp" />
-
-    <TextView
-        android:id="@+id/tv_weight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_weight"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/et_weight"
-        app:layout_constraintStart_toStartOf="@+id/et_weight"
-        app:layout_constraintTop_toTopOf="@+id/gl_input2" />
-
-    <EditText
-        android:id="@+id/et_weight"
-        android:layout_width="108dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/edit_text_border"
-        android:gravity="center"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="@+id/gl_left"
-        app:layout_constraintTop_toBottomOf="@+id/tv_weight"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="@string/tv_kg"
-        app:layout_constraintBottom_toBottomOf="@+id/et_weight"
-        app:layout_constraintStart_toEndOf="@+id/et_weight"
-        app:layout_constraintTop_toTopOf="@+id/et_weight" />
-
-    <TextView
-        android:id="@+id/tv_height"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/height"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/et_height"
-        app:layout_constraintStart_toStartOf="@+id/et_height"
-        app:layout_constraintTop_toTopOf="@+id/gl_input2" />
-
-    <EditText
-        android:id="@+id/et_height"
-        android:layout_width="108dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="4dp"
-        android:background="@drawable/edit_text_border"
-        android:gravity="center"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="@+id/et_weight"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/tv_weight"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_cm"
-        app:layout_constraintBottom_toBottomOf="@+id/et_height"
-        app:layout_constraintEnd_toStartOf="@+id/gl_right"
-        app:layout_constraintTop_toTopOf="@+id/et_height" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="470dp" />
-
-    <Button
-        android:id="@+id/analyzeButton"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="26dp"
-        android:text="@string/analyze"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gl_button" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.02" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.08" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/boy_cv"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/card_result"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp"
+            app:cardMaxElevation="4dp"
+            app:layout_constraintStart_toStartOf="@+id/gl_left"
+            app:layout_constraintTop_toTopOf="@+id/gl_top">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="93dp"
+                    android:layout_height="108dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/boy_image" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="8dp"
+                    android:text="@string/boy" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/girl_cv"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/card_result"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp"
+            app:cardMaxElevation="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/gl_right"
+            app:layout_constraintTop_toTopOf="@+id/gl_top">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="93dp"
+                    android:layout_height="108dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/girl_image" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="8dp"
+                    android:text="@string/girl" />
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="190dp" />
+
+        <TextView
+            android:id="@+id/tv_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/age"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/gl_right"
+            app:layout_constraintStart_toStartOf="@+id/gl_left"
+            app:layout_constraintTop_toTopOf="@+id/gl_input" />
+
+        <EditText
+            android:id="@+id/et_years"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edit_text_border"
+            android:gravity="center"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="@+id/gl_left"
+            app:layout_constraintTop_toBottomOf="@+id/tv_age"
+
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/tv_years"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/tv_years"
+            app:layout_constraintEnd_toEndOf="@+id/et_years"
+            app:layout_constraintStart_toStartOf="@+id/gl_left"
+            app:layout_constraintTop_toBottomOf="@+id/et_years" />
+
+        <EditText
+            android:id="@+id/et_months"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:background="@drawable/edit_text_border"
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="@+id/et_years"
+            app:layout_constraintEnd_toStartOf="@+id/et_days"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toEndOf="@+id/et_years"
+            app:layout_constraintTop_toTopOf="@+id/et_years"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/tv_months"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/tv_months"
+            app:layout_constraintEnd_toEndOf="@+id/et_months"
+            app:layout_constraintStart_toStartOf="@+id/et_months"
+            app:layout_constraintTop_toBottomOf="@+id/et_months" />
+
+        <EditText
+            android:id="@+id/et_days"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:background="@drawable/edit_text_border"
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="@+id/et_years"
+            app:layout_constraintEnd_toStartOf="@+id/gl_right"
+            app:layout_constraintTop_toTopOf="@+id/et_years"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/tv_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/tv_days"
+            app:layout_constraintEnd_toStartOf="@+id/gl_right"
+            app:layout_constraintStart_toStartOf="@+id/et_days"
+            app:layout_constraintTop_toBottomOf="@+id/et_days" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_input2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="340dp" />
+
+        <TextView
+            android:id="@+id/tv_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_weight"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/et_weight"
+            app:layout_constraintStart_toStartOf="@+id/et_weight"
+            app:layout_constraintTop_toTopOf="@+id/gl_input2" />
+
+        <EditText
+            android:id="@+id/et_weight"
+            android:layout_width="108dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/edit_text_border"
+            android:gravity="center"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="@+id/gl_left"
+            app:layout_constraintTop_toBottomOf="@+id/tv_weight"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/tv_kg"
+            app:layout_constraintBottom_toBottomOf="@+id/et_weight"
+            app:layout_constraintStart_toEndOf="@+id/et_weight"
+            app:layout_constraintTop_toTopOf="@+id/et_weight" />
+
+        <TextView
+            android:id="@+id/tv_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/height"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/et_height"
+            app:layout_constraintStart_toStartOf="@+id/et_height"
+            app:layout_constraintTop_toTopOf="@+id/gl_input2" />
+
+        <EditText
+            android:id="@+id/et_height"
+            android:layout_width="108dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/edit_text_border"
+            android:gravity="center"
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="@+id/et_weight"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/tv_weight"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_cm"
+            app:layout_constraintBottom_toBottomOf="@+id/et_height"
+            app:layout_constraintEnd_toStartOf="@+id/gl_right"
+            app:layout_constraintTop_toTopOf="@+id/et_height" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="470dp" />
+
+        <Button
+            android:id="@+id/analyzeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="26dp"
+            android:text="@string/analyze"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gl_button" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

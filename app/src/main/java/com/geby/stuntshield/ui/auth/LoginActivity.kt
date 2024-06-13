@@ -33,8 +33,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val pref = UserPreference.getInstance(application.dataStore)
-        val preferenceViewModel = ViewModelProvider(this, ViewModelFactory(pref))[MainViewModel::class.java]
 
+        // Mendapatkan instance ViewModelFactory dengan UserPreference
+        val viewModelFactory = ViewModelFactory(pref)
+
+        // Mendapatkan instance MainViewModel dengan ViewModelFactory yang sudah memiliki UserPreference
+        val preferenceViewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         val options = FirebaseOptions.Builder()
             .setApiKey("AIzaSyAs_cmapQSa7T9Ovu5rbqScJCDtRxh12F4")
             .setApplicationId("stuntshield")

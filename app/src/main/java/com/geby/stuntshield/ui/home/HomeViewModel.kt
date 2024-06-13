@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.geby.stuntshield.BuildConfig
 import com.geby.stuntshield.data.remote.ApiConfig
 import com.geby.stuntshield.data.response.ArticleResponse
 import com.geby.stuntshield.data.response.ResultsItem
@@ -34,7 +33,7 @@ class HomeViewModel : ViewModel() {
     fun showArticleList() {
         _isLoading.value = true
         _isError.value = false
-        val item = ApiConfig().getApiService(BuildConfig.ARTICLE_API).getArticles()
+        val item = ApiConfig().getApiService().getArticles()
         item.enqueue(object : Callback<ArticleResponse> {
             override fun onResponse(call: Call<ArticleResponse>,
                                     response: Response<ArticleResponse>

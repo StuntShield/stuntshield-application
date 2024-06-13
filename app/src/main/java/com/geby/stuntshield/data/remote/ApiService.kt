@@ -11,13 +11,14 @@ import retrofit2.http.Part
 
 interface ApiService {
     @Multipart
-    @POST("prediction")
+    @POST("stunting-classification")
     suspend fun analyzeData(
         @Part("year") year: RequestBody,
         @Part("month") month: RequestBody,
         @Part("day") day: RequestBody,
         @Part("jenis_kelamin") jenis_kelamin: RequestBody,
-        @Part("tinggi_badan") tinggi_badan: RequestBody
+        @Part("tinggi_badan") tinggi_badan: RequestBody,
+        @Part("berat_badan") berat_badan: RequestBody
     ): AnalyzeResponse
 
     @GET("articles")
