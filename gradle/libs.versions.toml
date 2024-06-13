@@ -64,4 +64,3 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 
-
