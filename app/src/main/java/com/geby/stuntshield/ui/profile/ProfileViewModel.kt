@@ -44,6 +44,11 @@ class ProfileViewModel (private val userPreference: UserPreference): ViewModel()
     val profilePictureUri: LiveData<Uri?>
         get() = _profilePictureUri
 
+    fun updateProfilePicture(uri: Uri) {
+        _profilePictureUri.value = uri
+        // Add logic to update the profile picture in Firebase or other storage
+    }
+
     private val _isLoggedOut = MutableLiveData<Boolean>()
     val isLoggedOut: LiveData<Boolean> = _isLoggedOut
 
