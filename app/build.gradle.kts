@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -15,7 +16,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "ARTICLE_API", "\"https://stuntshield-v1-u6viyjhgqa-uc.a.run.app/\"")
+        buildConfigField("String", "BASE_URL", "\"https://stuntshield-v1-u6viyjhgqa-uc.a.run.app/\"")
     }
 
     buildTypes {

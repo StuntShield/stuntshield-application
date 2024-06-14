@@ -1,21 +1,21 @@
 <resources>
     <string name="app_name">StuntShield</string>
     <string name="your_web_client_id">654080549977-7rc3vnrlgndhctcu2moljqu8pgq01c4p.apps.googleusercontent.com</string>
-    <string name="boy">Boy</string>
-    <string name="girl">Girl</string>
-    <string name="age">Age</string>
-    <string name="tv_months">Months</string>
-    <string name="tv_years">Years</string>
-    <string name="tv_days">Days</string>
-    <string name="tv_weight">Weight</string>
+    <string name="boy">Laki-laki</string>
+    <string name="girl">Perempuan</string>
+    <string name="age">Usia</string>
+    <string name="tv_months">Bulan</string>
+    <string name="tv_years">Tahun</string>
+    <string name="tv_days">Hari</string>
+    <string name="tv_weight">Berat</string>
     <string name="tv_kg">Kg</string>
     <string name="tv_cm">Cm</string>
-    <string name="analyze">Analyze</string>
+    <string name="analyze">Analisis</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_analyze">Analyze</string>
+    <string name="title_analyze">Analisis</string>
     <string name="title_profile">Profile</string>
-    <string name="height">Height</string>
+    <string name="height">Tinggi</string>
     <string name="tv_login">Login</string>
     <string name="tv_email">Email</string>
     <string name="supporting_image">supporting_image</string>
@@ -48,8 +48,10 @@
     <string name="article_preview">Preview Artikel</string>
     <string name="profile_picture">Provile Picture User</string>
     <string name="created_date">Created Date at 30 Desember 2024</string>
-    <string name="title_profile_page">My Profile</string>
     <string name="logout">Logout</string>
     <string name="edit_pict">Edit Pict</string>
+    <string name="gender_boy">gender_boy</string>
+    <string name="gender_girl">gender_girl</string>
+    <string name="hasil_analisis">Hasil Analisis</string>
 
 </resources>

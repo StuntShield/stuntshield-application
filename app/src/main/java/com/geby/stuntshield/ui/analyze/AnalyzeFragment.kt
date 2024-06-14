@@ -6,28 +6,30 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.lifecycleScope
-import com.geby.stuntshield.data.remote.ApiConfig
+import androidx.fragment.app.viewModels
+import com.geby.stuntshield.R
+import com.geby.stuntshield.data.ResultState
+import com.geby.stuntshield.data.response.AnalyzeResponse
 import com.geby.stuntshield.databinding.FragmentAnalyzeBinding
+import com.geby.stuntshield.ui.ViewModelFactory
 import com.geby.stuntshield.ui.result.ResultActivity
-import com.google.gson.JsonSyntaxException
-import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.RequestBody.Companion.toRequestBody
 
 class AnalyzeFragment : Fragment() {
 
     private var _binding: FragmentAnalyzeBinding? = null
     private lateinit var fragmentManager: FragmentManager
     private var selectedGender: String? = null
+    private var selectedCardView: CardView? = null
 
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private val viewModel: AnalyzeViewModel by viewModels {
+        ViewModelFactory.getInstance(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,90 +39,84 @@ class AnalyzeFragment : Fragment() {
 
         _binding = FragmentAnalyzeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        setupGenderSelection()
-
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        setupCardViewListeners()
         fragmentManager = requireActivity().supportFragmentManager
-        val analyzeButton = binding.analyzeButton
-        analyzeButton.setOnClickListener {
-            uploadData()
+        binding.analyzeButton.setOnClickListener {
+            analyzeData()
         }
         return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun setupGenderSelection() {
+    private fun setupCardViewListeners() {
         binding.boyCv.setOnClickListener {
+            selectCardView(binding.boyCv)
             selectedGender = "laki-laki"
-            it.isSelected = true
-            binding.girlCv.isSelected = false
-            Toast.makeText(requireContext(), "Boy selected", Toast.LENGTH_SHORT).show()
         }
 
         binding.girlCv.setOnClickListener {
+            selectCardView(binding.girlCv)
             selectedGender = "perempuan"
-            it.isSelected = true
-            binding.boyCv.isSelected = false
-            Toast.makeText(requireContext(), "Girl selected", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun selectGender(selectedGender: String?) {
-        binding.boyCv.isSelected = selectedGender == "laki-laki"
-        binding.girlCv.isSelected = selectedGender == "perempuan"
+    private fun selectCardView(cardView: CardView) {
+        selectedCardView?.setBackgroundResource(R.drawable.card_border_inactive)
+        cardView.setBackgroundResource(R.drawable.card_border_active)
+        selectedCardView = cardView
     }
 
-    private fun uploadData() {
+    private fun analyzeData() {
         val inputYear = binding.etYears.text.toString()
         val inputMonth = binding.etMonths.text.toString()
         val inputDay = binding.etDays.text.toString()
         val inputWeight = binding.etWeight.text.toString()
         val inputHeight = binding.etHeight.text.toString()
 
-        val yearBody = inputYear.toRequestBody("text/plain".toMediaType())
-        val monthBody = inputMonth.toRequestBody("text/plain".toMediaType())
-        val dayBody = inputDay.toRequestBody("text/plain".toMediaType())
-        val genderBody = selectedGender?.toRequestBody("text/plain".toMediaType())
-        val heightBody = inputHeight.toRequestBody("text/plain".toMediaType())
-
-        lifecycleScope.launch {
-            try {
-                val apiService = ApiConfig().getApiService("https://api-model-u6viyjhgqa-uc.a.run.app/")
-                val successResponse = apiService.analyzeData(yearBody, monthBody, dayBody, genderBody!!, heightBody)
-
-                Log.d("AnalyzeFragment", "Server response: $successResponse")
-                val predict = successResponse.data?.jsonMemberClass.toString()
-                val confidenceScore = successResponse.data?.presentase.toString()
-                goToResult(selectedGender.toString(), "$inputYear tahun, $inputMonth bulan, $inputDay hari", inputWeight, inputHeight, predict, "$confidenceScore%")
-            } catch (e: JsonSyntaxException) {
-                Log.e("AnalyzeFragment", "JSON parsing error", e)
-                showToast("Invalid response format")
-            } catch (e: Exception) {
-                Log.e("AnalyzeFragment", "Error in API call", e)
-                showToast(e.localizedMessage ?: "Unknown error occurred")
+        viewModel.analyzeData(selectedGender.toString(), inputYear, inputMonth, inputDay, inputWeight, inputHeight)
+            .observe(viewLifecycleOwner) { result ->
+                if (result != null) {
+                    when (result) {
+                        is ResultState.Loading -> {
+                            showLoading(true)
+                        }
+                        is ResultState.Success -> {
+                            Log.d("Hasil Prediksi:", result.data.data?.recommendation.toString())
+                            showToast(result.data.status?.message.toString())
+                            goToResult(selectedGender.toString(), "$inputYear tahun, $inputMonth bulan, $inputDay hari" , "$inputHeight cm", "$inputWeight kg", result.data)
+                        }
+                        is ResultState.Error -> {
+                            showToast(result.error)
+                            showLoading(false)
+                        }
+                    }
+                }
             }
-        }
     }
 
-    private fun goToResult(gender: String, age: String, weight: String, height: String, predict: String, confidenceScore: String) {
+    private fun goToResult(gender: String, age: String, height: String, weight: String, result: AnalyzeResponse) {
         val intent = Intent(requireContext(), ResultActivity::class.java).apply {
+            putExtra("result", result)
             putExtra("gender", gender)
             putExtra("age", age)
-            putExtra("weight", weight)
             putExtra("height", height)
-            putExtra("predict", predict)
-            putExtra("confidenceScore", confidenceScore)
+            putExtra("weight", weight)
         }
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
-        requireActivity().finish()
+//        requireActivity().finish()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
