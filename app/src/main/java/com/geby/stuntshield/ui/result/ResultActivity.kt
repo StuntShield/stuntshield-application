@@ -16,7 +16,7 @@ class ResultActivity : AppCompatActivity() {
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.title = "Analysis Result"
+        supportActionBar?.title = getString(R.string.hasil_analisis)
 
         displayResult()
 
@@ -32,14 +32,14 @@ class ResultActivity : AppCompatActivity() {
             val recommendations = result?.data?.recommendation
             val inputGender = intent.getStringExtra("gender") ?: "No result"
             val inputAge = intent.getStringExtra("age") ?: "No result"
-            val inputWeight = intent.getStringExtra("weight") ?: "No result"
             val inputHeight = intent.getStringExtra("height") ?: "No result"
+            val inputWeight = intent.getStringExtra("weight") ?: "No result"
 
             with(binding) {
                 resultGender.text = inputGender
                 resultAge.text = inputAge
-                resultWeight.text = inputWeight
                 resultHeight.text = inputHeight
+                resultWeight.text = inputWeight
                 stuntedStatus.text = stuntResult
                 conScore.text = "${(stuntPercentage?.toFloat() ?: 0.0f).toInt()}%"
                 recommendation.text = recommendations
@@ -47,8 +47,4 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        supportFragmentManager.popBackStack()
-    }
 }

@@ -10,7 +10,7 @@
     <string name="tv_weight">Berat</string>
     <string name="tv_kg">Kg</string>
     <string name="tv_cm">Cm</string>
-    <string name="analyze">Analis</string>
+    <string name="analyze">Analisis</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_analyze">Analisis</string>
@@ -50,5 +50,8 @@
     <string name="created_date">Created Date at 30 Desember 2024</string>
     <string name="logout">Logout</string>
     <string name="edit_pict">Edit Pict</string>
+    <string name="gender_boy">gender_boy</string>
+    <string name="gender_girl">gender_girl</string>
+    <string name="hasil_analisis">Hasil Analisis</string>
 
 </resources>

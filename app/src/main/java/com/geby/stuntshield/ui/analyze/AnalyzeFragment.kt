@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import com.geby.stuntshield.R
 import com.geby.stuntshield.data.ResultState
 import com.geby.stuntshield.data.response.AnalyzeResponse
 import com.geby.stuntshield.databinding.FragmentAnalyzeBinding
@@ -22,6 +24,8 @@ class AnalyzeFragment : Fragment() {
     private var _binding: FragmentAnalyzeBinding? = null
     private lateinit var fragmentManager: FragmentManager
     private var selectedGender: String? = null
+    private var selectedCardView: CardView? = null
+
     private val binding get() = _binding!!
     private val viewModel: AnalyzeViewModel by viewModels {
         ViewModelFactory.getInstance(requireContext())
@@ -36,12 +40,30 @@ class AnalyzeFragment : Fragment() {
         _binding = FragmentAnalyzeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        setupGenderSelection()
+        setupCardViewListeners()
         fragmentManager = requireActivity().supportFragmentManager
         binding.analyzeButton.setOnClickListener {
             analyzeData()
         }
         return root
+    }
+
+    private fun setupCardViewListeners() {
+        binding.boyCv.setOnClickListener {
+            selectCardView(binding.boyCv)
+            selectedGender = "laki-laki"
+        }
+
+        binding.girlCv.setOnClickListener {
+            selectCardView(binding.girlCv)
+            selectedGender = "perempuan"
+        }
+    }
+
+    private fun selectCardView(cardView: CardView) {
+        selectedCardView?.setBackgroundResource(R.drawable.card_border_inactive)
+        cardView.setBackgroundResource(R.drawable.card_border_active)
+        selectedCardView = cardView
     }
 
     private fun analyzeData() {
@@ -61,7 +83,7 @@ class AnalyzeFragment : Fragment() {
                         is ResultState.Success -> {
                             Log.d("Hasil Prediksi:", result.data.data?.recommendation.toString())
                             showToast(result.data.status?.message.toString())
-                            goToResult(selectedGender.toString(), "$inputYear tahun, $inputMonth bulan, $inputDay hari", "$inputWeight kg", "$inputHeight kg", result.data)
+                            goToResult(selectedGender.toString(), "$inputYear tahun, $inputMonth bulan, $inputDay hari" , "$inputHeight cm", "$inputWeight kg", result.data)
                         }
                         is ResultState.Error -> {
                             showToast(result.error)
@@ -72,34 +94,13 @@ class AnalyzeFragment : Fragment() {
             }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun setupGenderSelection() {
-        binding.boyCv.setOnClickListener {
-            selectedGender = "laki-laki"
-            it.isSelected = true
-            binding.girlCv.isSelected = false
-            Toast.makeText(requireContext(), "Boy selected", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.girlCv.setOnClickListener {
-            selectedGender = "perempuan"
-            it.isSelected = true
-            binding.boyCv.isSelected = false
-            Toast.makeText(requireContext(), "Girl selected", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun goToResult(gender: String, age: String, weight: String, height: String, result: AnalyzeResponse) {
+    private fun goToResult(gender: String, age: String, height: String, weight: String, result: AnalyzeResponse) {
         val intent = Intent(requireContext(), ResultActivity::class.java).apply {
             putExtra("result", result)
             putExtra("gender", gender)
             putExtra("age", age)
-            putExtra("weight", weight)
             putExtra("height", height)
+            putExtra("weight", weight)
         }
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
@@ -112,5 +113,10 @@ class AnalyzeFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

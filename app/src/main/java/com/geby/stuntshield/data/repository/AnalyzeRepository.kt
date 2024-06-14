@@ -22,7 +22,7 @@ class AnalyzeRepository private constructor(
         val heightBody = height.toRequestBody("text/plain".toMediaType())
 
         try {
-            val successResponse = apiService.analyzeData(yearBody, monthBody, dayBody, genderBody, weightBody, heightBody)
+            val successResponse = apiService.analyzeData(yearBody, monthBody, dayBody, genderBody, heightBody, weightBody)
             emit(ResultState.Success(successResponse))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
