@@ -47,7 +47,7 @@
     <string name="article_title">Judul Artikel</string>
     <string name="article_preview">Preview Artikel</string>
     <string name="profile_picture">Provile Picture User</string>
-    <string name="created_date">Created Date at 30 Desember 2024</string>
+    <string name="created_date">Created at </string>
     <string name="logout">Logout</string>
     <string name="edit_pict">Edit Pict</string>
     <string name="gender_boy">gender_boy</string>

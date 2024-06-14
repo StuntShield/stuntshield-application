@@ -8,6 +8,7 @@ import com.geby.stuntshield.data.local.pref.dataStore
 import com.geby.stuntshield.data.repository.AnalyzeRepository
 import com.geby.stuntshield.di.Injection
 import com.geby.stuntshield.ui.analyze.AnalyzeViewModel
+import com.geby.stuntshield.ui.profile.ProfileViewModel
 
 class ViewModelFactory(
     private val userPreference: UserPreference? = null,

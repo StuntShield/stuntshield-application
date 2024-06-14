@@ -29,10 +29,10 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val sharedPref = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        requireActivity().actionBar?.hide()
 
         homeViewModel.listArticle.observe(viewLifecycleOwner) { item ->
             setArticleList(item)
