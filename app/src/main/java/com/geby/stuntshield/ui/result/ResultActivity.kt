@@ -1,5 +1,6 @@
 package com.geby.stuntshield.ui.result
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -44,7 +45,13 @@ class ResultActivity : AppCompatActivity() {
                 conScore.text = "${(stuntPercentage?.toFloat() ?: 0.0f).toInt()}%"
                 recommendation.text = recommendations
             }
+            stuntResult?.let { setTextColor(it) }
         }
     }
 
+    private fun setTextColor(result: String) {
+        if (result == "Normal") {
+            binding.stuntedStatus.setTextColor(Color.GREEN)
+        }
+    }
 }

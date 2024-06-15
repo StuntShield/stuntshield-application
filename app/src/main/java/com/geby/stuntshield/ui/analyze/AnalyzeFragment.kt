@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -86,7 +87,7 @@ class AnalyzeFragment : Fragment() {
                             goToResult(selectedGender.toString(), "$inputYear tahun, $inputMonth bulan, $inputDay hari" , "$inputHeight cm", "$inputWeight kg", result.data)
                         }
                         is ResultState.Error -> {
-                            showToast(result.error)
+                            showErrorDialog(result.error)
                             showLoading(false)
                         }
                     }
@@ -102,13 +103,22 @@ class AnalyzeFragment : Fragment() {
             putExtra("height", height)
             putExtra("weight", weight)
         }
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
-//        requireActivity().finish()
+        requireActivity().finish()
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showErrorDialog(errorMessage: String) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Error")
+            .setMessage(errorMessage)
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun showToast(message: String) {

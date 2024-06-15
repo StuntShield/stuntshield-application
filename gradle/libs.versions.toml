@@ -28,6 +28,7 @@ retrofit = "2.11.0"
 credentials = "1.2.2"
 googleid = "1.1.0"
 
+
 [libraries]
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "credentials" }
 androidx-credentials-play-services-auth = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "credentials" }
