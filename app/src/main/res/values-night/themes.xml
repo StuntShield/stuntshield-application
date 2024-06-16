@@ -13,6 +13,7 @@
     </style>
 
     <style name="googleButton">
+        <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="android:text">Masuk dengan Google</item>
         <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">14sp</item>

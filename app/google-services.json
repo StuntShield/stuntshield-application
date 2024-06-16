@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "654080549977",
+    "project_id": "stuntshield",
+    "storage_bucket": "stuntshield.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654080549977:android:33fecbaa5ea1eb31c83d48",
+        "android_client_info": {
+          "package_name": "com.geby.stuntshield"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "654080549977-j2arcq39e3slq99f5ph192ul6e4rt065.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.geby.stuntshield",
+            "certificate_hash": "d5f3a0297c4086cdb61658b5c63eaa0f9a4fb587"
+          }
+        },
+        {
+          "client_id": "654080549977-7rc3vnrlgndhctcu2moljqu8pgq01c4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNN3dbuuAj-DN09zXeeHk_7CCsWsnBAxs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "654080549977-7rc3vnrlgndhctcu2moljqu8pgq01c4p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

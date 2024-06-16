@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
 
 class AnalyzeRepository private constructor(
     private val apiService: ApiService
@@ -24,6 +25,8 @@ class AnalyzeRepository private constructor(
         try {
             val successResponse = apiService.analyzeData(yearBody, monthBody, dayBody, genderBody, heightBody, weightBody)
             emit(ResultState.Success(successResponse))
+        } catch (e: SocketTimeoutException) {
+            emit(ResultState.Error("Kesalahan koneksi jaringan, silahkan coba lagi."))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, AnalyzeResponse::class.java)

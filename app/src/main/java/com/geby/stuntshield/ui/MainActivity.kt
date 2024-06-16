@@ -14,11 +14,15 @@ import com.geby.stuntshield.data.local.pref.dataStore
 import com.geby.stuntshield.databinding.ActivityMainBinding
 import com.geby.stuntshield.ui.welcome.WelcomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +32,21 @@ class MainActivity : AppCompatActivity() {
 
         val pref = UserPreference.getInstance(application.dataStore)
         mainViewModel = ViewModelProvider(this, ViewModelFactory(pref))[MainViewModel::class.java]
-        mainViewModel.getUserId().observe(this) { userId: String ->
-            if (userId.isBlank()) {
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                finish()
-            }
-        }
+//        mainViewModel.getUserId().observe(this) { userId: String ->
+//            if (userId.isBlank()) {
+//                startActivity(Intent(this, WelcomeActivity::class.java))
+//                finish()
+//            }
+//        }
+        auth = Firebase.auth
+        val firebaseUser = auth.currentUser
 
+        if (firebaseUser == null) {
+            // Not signed in, launch the Login activity
+            startActivity(Intent(this, WelcomeActivity::class.java))
+            finish()
+            return
+        }
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)

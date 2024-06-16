@@ -10,8 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.geby.stuntshield.R
 import com.geby.stuntshield.databinding.ActivityRegisterBinding
-import com.google.firebase.FirebaseApp
-import com.google.firebase.FirebaseOptions
+import com.geby.stuntshield.ui.MainActivity
 import com.google.firebase.auth.FirebaseUser
 
 class RegisterActivity : AppCompatActivity() {
@@ -25,47 +24,46 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(binding.root)
 
-        val options = FirebaseOptions.Builder()
-            .setApiKey("AIzaSyAs_cmapQSa7T9Ovu5rbqScJCDtRxh12F4")
-            .setApplicationId("stunshield")
-            .build()
-
-        if (FirebaseApp.getApps(this).isEmpty()) {
-            FirebaseApp.initializeApp(this, options)
+        binding.buttonGoogle.setOnClickListener {
+            authViewModel.googleSignIn(this, getString(R.string.your_web_client_id))
         }
 
         register()
+        observeViewModel()
+    }
 
-        authViewModel.authResult.observe(this) { result ->
-            result.onSuccess { user ->
-                Log.d("Register", "Register berhasil")
-                AlertDialog.Builder(this).apply {
-                    setTitle(getString(R.string.register_success_title))
-                    setMessage(getString(R.string.register_success_msg))
-                    setPositiveButton("OK") { _, _ ->
-                        updateUi(user)
+    private fun observeViewModel() {
+        authViewModel.user.observe(this) { result ->
+            result?.let {
+                it.fold(
+                    onSuccess = { user ->
+                        Log.d("Register", "${user?.displayName} berhasil registrasi.")
+                        AlertDialog.Builder(this).apply {
+                            setTitle(getString(R.string.register_success_title))
+                            setMessage(getString(R.string.register_success_msg))
+                            setPositiveButton("OK") { _, _ ->
+                                updateUi(user)
+                            }
+                            create()
+                            show()
+                        }
+                    },
+                    onFailure = { exception ->
+                        Log.w("Register", "Register gagal")
+                        AlertDialog.Builder(this).apply {
+                            setTitle(getString(R.string.register_failed_title))
+                            setMessage(exception.message)
+                            setPositiveButton("OK") { _, _ -> }
+                            create()
+                            show()
+                        }
                     }
-                    create()
-                    show()
-                }
-            }
-            result.onFailure { exception ->
-                Log.w("Register", "Register gagal")
-                AlertDialog.Builder(this).apply {
-                    setTitle(getString(R.string.register_failed_title))
-                    setMessage(exception.message)
-                    setPositiveButton("OK") { _, _ -> }
-                    create()
-                    show()
-                }
-            }
-
-            authViewModel.isLoading.observe(this) {
-                showLoading(it)
+                )
             }
         }
-
-
+        authViewModel.isLoading.observe(this) { isLoading ->
+            showLoading(isLoading)
+        }
     }
 
     private fun register() {
@@ -86,14 +84,16 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun updateUi(user: FirebaseUser?) {
         if (user != null) {
-            try {
-                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                finish()
-            } catch (e: Exception) {
-                Log.e("Register", "Error saat updateUi", e)
+            val intent = if (authViewModel.isGoogleSignIn) {
+                Intent(this@RegisterActivity, MainActivity::class.java)
+            } else {
+                Intent(this@RegisterActivity, LoginActivity::class.java).apply {
+                    action = "com.example.action.REGISTRATION_FLOW"
+                }
             }
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finish()
         }
     }
 

@@ -3,7 +3,6 @@ package com.geby.stuntshield.ui.profile
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.pm.PackageManager.*
 import android.net.Uri
 import android.os.Bundle
@@ -19,12 +18,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import com.geby.stuntshield.data.local.pref.UserPreference
-import com.geby.stuntshield.data.local.pref.dataStore
 import com.geby.stuntshield.databinding.FragmentProfileBinding
 import com.geby.stuntshield.ui.MainViewModel
 import com.geby.stuntshield.ui.ViewModelFactory
-import com.geby.stuntshield.ui.home.HomeViewModel
 import com.geby.stuntshield.ui.welcome.WelcomeActivity
 
 class ProfileFragment : Fragment() {
