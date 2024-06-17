@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContentProviderCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,6 +23,9 @@ import com.geby.stuntshield.databinding.FragmentProfileBinding
 import com.geby.stuntshield.ui.MainViewModel
 import com.geby.stuntshield.ui.ViewModelFactory
 import com.geby.stuntshield.ui.welcome.WelcomeActivity
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import java.util.UUID
 
 class ProfileFragment : Fragment() {
 
@@ -31,6 +35,8 @@ class ProfileFragment : Fragment() {
     private val mainViewModel: MainViewModel by viewModels {
         ViewModelFactory.getInstance(requireContext())
     }
+    private lateinit var storageRef: StorageReference
+
 
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -43,15 +49,24 @@ class ProfileFragment : Fragment() {
             }
         }
 
-    private val launcherGallery = registerForActivityResult(
-        ActivityResultContracts.PickVisualMedia()
-    ) { uri: Uri? ->
-        if (uri != null) {
-            profileViewModel.updateProfilePicture(uri)
-        } else {
-            Log.d("Photo Picker", "No media selected")
-        }
-    }
+//    fun uploadFile(fileUri: Uri) {
+//        if (fileUri != null) {
+//            val fileRef = storageRef.child("images/" + UUID.randomUUID().toString())
+//
+//            fileRef.putFile(fileUri)
+//                .addOnSuccessListener {
+//                    // File uploaded successfully
+//                    Toast.makeText(ContentProviderCompat.requireContext(), "Upload successful", Toast.LENGTH_SHORT).show()
+//                    // Update the profile picture URI in ViewModel
+//                    profileViewModel.updateProfilePicture(fileRef.downloadUrl.toString())
+//                }
+//                .addOnFailureListener { e ->
+//                    // Handle unsuccessful uploads
+//                    Toast.makeText(ContentProviderCompat.requireContext(), "Upload failed: ${e.message}", Toast.LENGTH_SHORT).show()
+//                }
+//        }
+//    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,16 +76,18 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val sharedPref = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        storageRef = FirebaseStorage.getInstance().reference
 
         profileViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
         profileViewModel.isError.observe(viewLifecycleOwner) { isError ->
-            binding.btnLogout.visibility = if (isError) View.VISIBLE else View.GONE
-        }
-        profileViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+            if (isError) {
+                profileViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+                    errorMessage?.let {
+                        Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                    }
+                }
             }
         }
 
@@ -143,6 +160,15 @@ class ProfileFragment : Fragment() {
 
     private fun pickImageFromGallery() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+    private val launcherGallery = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            profileViewModel.uploadFile(uri)
+        } else {
+            Log.d("Photo Picker", "No media selected")
+        }
     }
 
     override fun onDestroyView() {

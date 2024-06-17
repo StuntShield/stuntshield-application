@@ -7,12 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.geby.stuntshield.data.local.pref.UserPreference
-import com.geby.stuntshield.ui.MainViewModel
-import com.geby.stuntshield.ui.home.HomeViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.launch
 import java.util.Date
+import java.util.UUID
 
 class ProfileViewModel (private val userPreference: UserPreference): ViewModel() {
 
@@ -44,10 +45,7 @@ class ProfileViewModel (private val userPreference: UserPreference): ViewModel()
     val profilePictureUri: LiveData<Uri?>
         get() = _profilePictureUri
 
-    fun updateProfilePicture(uri: Uri) {
-        _profilePictureUri.value = uri
-        // Add logic to update the profile picture in Firebase or other storage
-    }
+    private val storageRef = FirebaseStorage.getInstance().reference
 
     private val _isLoggedOut = MutableLiveData<Boolean>()
     val isLoggedOut: LiveData<Boolean> = _isLoggedOut
@@ -57,7 +55,54 @@ class ProfileViewModel (private val userPreference: UserPreference): ViewModel()
         getUser()
     }
 
-//    get user with firebase
+     fun uploadFile(fileUri: Uri) {
+        val fileRef = storageRef.child("images/" + UUID.randomUUID().toString())
+
+        fileRef.putFile(fileUri)
+            .addOnSuccessListener {
+                // File uploaded successfully
+                fileRef.downloadUrl.addOnSuccessListener { uri ->
+                    // Update the profile picture URI in ViewModel
+                    updateProfilePicture(uri.toString())
+                }.addOnFailureListener { e ->
+                    // Handle failure to get download URL
+                    Log.e(TAG, "Failed to get download URL: ${e.message}")
+                    _isError.value = true
+                    _errorMessage.value = "Failed to upload file: ${e.message}"
+                }
+            }
+            .addOnFailureListener { e ->
+                // Handle unsuccessful uploads
+                Log.e(TAG, "Upload failed: ${e.message}")
+                _isError.value = true
+                _errorMessage.value = "Upload failed: ${e.message}"
+
+            }
+    }
+
+    private fun updateProfilePicture(uri: String) {
+        _isLoading.value = true
+        _isError.value = false
+        val user = FirebaseAuth.getInstance().currentUser
+        val profileUpdates = UserProfileChangeRequest.Builder()
+            .setPhotoUri(Uri.parse(uri))
+            .build()
+
+        user?.updateProfile(profileUpdates)
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    _profilePictureUri.value = Uri.parse(uri)
+                    _isLoading.value = false
+                } else {
+                    _isLoading.value = false
+                    _isError.value = true
+                    _errorMessage.value =
+                        "Failed to update profile picture: ${task.exception?.message}"
+                }
+            }
+    }
+
+    //    get user with firebase
     private fun getUser() {
         _isLoading.value = true
         _isError.value = false
@@ -91,25 +136,26 @@ class ProfileViewModel (private val userPreference: UserPreference): ViewModel()
 //        }
 //    }
 
-    fun logout() {
-        _isLoading.value = true
-        _isError.value = false
+        fun logout() {
+            _isLoading.value = true
+            _isError.value = false
 
-        viewModelScope.launch {
-            try {
-                userPreference.logout()
-                _isLoggedOut.value = true
-                _isLoading.value = false
-            } catch (e: Exception) {
-                _isLoading.value = false
-                _isError.value = true
-                _errorMessage.value = "Failed to log out: ${e.message}"
-                Log.e(TAG, "Failed to log out: ${e.message}")
+            viewModelScope.launch {
+                try {
+                    userPreference.logout()
+                    _isLoggedOut.value = true
+                    _isLoading.value = false
+                } catch (e: Exception) {
+                    _isLoading.value = false
+                    _isError.value = true
+                    _errorMessage.value = "Failed to log out: ${e.message}"
+                    Log.e(TAG, "Failed to log out: ${e.message}")
+                }
             }
         }
-    }
 
-    companion object{
-        private const val TAG = "ProfileViewModel"
-    }
+        companion object {
+            private const val TAG = "ProfileViewModel"
+        }
+
 }
