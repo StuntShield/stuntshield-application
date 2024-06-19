@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="12dp"
     tools:context=".ui.result.ResultActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_result"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/card_result"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/activity_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/hasil_analisis_title"
+            android:textColor="@color/title_activity"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_result"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingVertical="8dp"
-            android:paddingHorizontal="16dp">
-
-            <ImageView
-                android:id="@+id/stunt_detect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/light_primary_color_transparan"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activity_title">
 
             <TableLayout
+                android:id="@+id/table_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView">
+                android:layout_marginHorizontal="8dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="12dp">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -42,25 +51,25 @@
                     android:layout_marginBottom="4dp">
 
                     <TextView
+                        style="@style/basicText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jenis Kelamin"
-                        style="@style/basicText.bold"/>
+                        android:text="@string/jenis_kelamin" />
 
                     <TextView
+                        style="@style/basicText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="4dp"
-                        android:text=":"
-                        style="@style/basicText"/>
+                        android:text="@string/equal" />
 
                     <TextView
                         android:id="@+id/result_gender"
+                        style="@style/basicText.bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Result Gender"
-                        style="@style/basicText"/>
+                        android:text="@string/result_gender" />
                 </TableRow>
 
                 <TableRow
@@ -69,26 +78,26 @@
                     android:layout_marginBottom="8dp">
 
                     <TextView
+                        style="@style/basicText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Usia"
-                        style="@style/basicText.bold" />
+                        android:text="@string/usia" />
 
 
                     <TextView
+                        style="@style/basicText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="4dp"
-                        android:text=":"
-                        style="@style/basicText"/>
+                        android:text="@string/equal" />
 
                     <TextView
                         android:id="@+id/result_age"
+                        style="@style/basicText.bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Result Age"
-                        style="@style/basicText" />
+                        android:text="@string/result_age" />
                 </TableRow>
 
                 <TableRow
@@ -97,114 +106,221 @@
                     android:layout_marginBottom="8dp">
 
                     <TextView
+                        style="@style/basicText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tinggi Badan"
-                        style="@style/basicText.bold" />
+                        android:text="@string/tinggi_badan" />
 
                     <TextView
+                        style="@style/basicText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="4dp"
-                        android:text=":"
-                        style="@style/basicText"/>
+                        android:text="@string/equal" />
 
                     <TextView
                         android:id="@+id/result_height"
+                        style="@style/basicText.bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Result Height"
-                        style="@style/basicText"/>
+                        android:text="@string/result_height" />
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp">
+                    android:layout_height="wrap_content">
 
                     <TextView
+                        style="@style/basicText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Berat Badan"
-                        style="@style/basicText.bold" />
+                        android:text="@string/berat_badan" />
 
                     <TextView
+                        style="@style/basicText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=":"
                         android:layout_marginHorizontal="4dp"
-                        style="@style/basicText" />
+                        android:text="@string/equal" />
 
                     <TextView
                         android:id="@+id/result_weight"
+                        style="@style/basicText.bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Result Weight"
-                        style="@style/basicText" />
+                        android:text="@string/result_weight" />
                 </TableRow>
             </TableLayout>
-        </LinearLayout>
 
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Hasil analisis adalah"
-        style="@style/basicText"
-        app:layout_constraintStart_toStartOf="@+id/card_result"
-        app:layout_constraintTop_toBottomOf="@+id/card_result" />
-
-    <TextView
-        android:id="@+id/stunted_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="Stunted/Normal"
-        style="@style/basicText.bold"
-        android:textColor="@color/red"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="@+id/textView5" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="dengan persentase"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <TextView
-        android:id="@+id/con_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="Score percentage"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toTopOf="@+id/textView7" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_recommendation"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/card_result"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/con_score" >
-
-        <ScrollView
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_stunting"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:backgroundTint="@color/light_primary_color_transparan"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_result">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:id="@+id/tv_stunting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/basicText"
+                    android:text="@string/tv_stunting"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_stuntingScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/persentase"
+                    style="@style/basicText.bold"
+                    app:layout_constraintStart_toStartOf="@+id/tv_stunting"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_stunting" />
+
+                <TextView
+                    android:id="@+id/tv_stuntingStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/stunting_result"
+                    style="@style/basicText.bold"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_stuntingScore"
+                    app:layout_constraintTop_toTopOf="@+id/tv_stuntingScore" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/light_primary_color_transparan"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/cv_stunting"
+            tools:layout_editor_absoluteX="16dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:id="@+id/tv_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_obesitas"
+                    style="@style/basicText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_weightScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/persentase"
+                    style="@style/basicText.bold"
+                    app:layout_constraintStart_toStartOf="@+id/tv_weight"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_weight" />
+
+                <TextView
+                    android:id="@+id/tv_weightStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/weight_status"
+                    style="@style/basicText.bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_weightScore"
+                    app:layout_constraintTop_toTopOf="@+id/tv_weightScore" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_gizi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/light_primary_color_transparan"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_weight">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:id="@+id/tv_gizi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_gizi"
+                    style="@style/basicText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_giziScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/persentase"
+                    style="@style/basicText.bold"
+                    app:layout_constraintStart_toStartOf="@+id/tv_gizi"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_gizi" />
+
+                <TextView
+                    android:id="@+id/tv_giziStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/gizi_status"
+                    style="@style/basicText.bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_giziScore"
+                    app:layout_constraintTop_toTopOf="@+id/tv_giziScore" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_recommendation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/card_result"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_gizi">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -218,22 +334,20 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="4dp"
-                    android:text="Rekomendasi"
-                    android:textFontWeight="700"
+                    android:text="@string/tv_rekomendasi"
+                    android:textStyle="bold"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/recommendation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Recommendation here" />
+                    android:text="@string/rekomendasi_konten"
+                    style="@style/basicText" />
 
             </LinearLayout>
-        </ScrollView>
+        </androidx.cardview.widget.CardView>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </androidx.cardview.widget.CardView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

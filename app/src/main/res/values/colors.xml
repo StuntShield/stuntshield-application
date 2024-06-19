@@ -3,8 +3,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light_primary_color">#9059B1</color>
+    <color name="light_primary_color_transparan">#F3DEFF</color>
     <color name="border_color">#DEE8F5</color>
     <color name="red">#DA0000</color>
     <color name="pink">#FFB6E6</color>
-    <color name="blue">#4285F4</color>
+    <color name="high_status">#0F51B5</color>
+    <color name="blue">#0F51B5</color>
+    <color name="title_activity">#46215C</color>
+    <color name="warning_status">#FFA30D</color>
+    <color name="normal_status">#29CE00</color>
 </resources>

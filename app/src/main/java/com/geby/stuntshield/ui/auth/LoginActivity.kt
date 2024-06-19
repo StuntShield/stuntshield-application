@@ -49,12 +49,14 @@ class LoginActivity : AppCompatActivity() {
                 it.fold(
                     onSuccess = { user -> updateUI(user) },
                     onFailure = {
-                        AlertDialog.Builder(this).apply {
-                            setTitle(getString(R.string.login_failed_title))
-                            setMessage(getString(R.string.login_failed_msg))
-                            setPositiveButton("OK") { _, _ -> }
-                            create()
-                            show()
+                        if (!authViewModel.initialCheck) {
+                            AlertDialog.Builder(this).apply {
+                                setTitle(getString(R.string.login_failed_title))
+                                setMessage(getString(R.string.login_failed_msg))
+                                setPositiveButton("OK") { _, _ -> }
+                                create()
+                                show()
+                            }
                         }
                     }
                 )

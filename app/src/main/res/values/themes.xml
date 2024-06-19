@@ -8,9 +8,8 @@
     </style>
 
     <style name="basicText">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">15sp</item>
     </style>
-
     <style name="basicText.bold">
         <item name="android:textStyle">bold</item>
     </style>

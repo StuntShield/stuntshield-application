@@ -53,5 +53,24 @@
     <string name="gender_boy">gender_boy</string>
     <string name="gender_girl">gender_girl</string>
     <string name="hasil_analisis">Hasil Analisis</string>
+    <string name="jenis_kelamin">Jenis Kelamin</string>
+    <string name="result_gender">Result Gender</string>
+    <string name="usia">Usia</string>
+    <string name="equal">:</string>
+    <string name="result_age">Result Age</string>
+    <string name="tinggi_badan">Tinggi Badan</string>
+    <string name="result_height">Result Height</string>
+    <string name="result_weight">Result Weight</string>
+    <string name="berat_badan">Berat Badan</string>
+    <string name="tv_stunting">Index Tinggi Badan/Umur :</string>
+    <string name="persentase">89%</string>
+    <string name="stunting_result">Tinggi</string>
+    <string name="tv_obesitas">Index Tinggi Badan/Umur :</string>
+    <string name="weight_status">Berisiko Berat Badan Lebih</string>
+    <string name="tv_gizi">Index Berat Badan Menurut Tinggi Badan:</string>
+    <string name="gizi_status">Gizi Baik (Normal)</string>
+    <string name="tv_rekomendasi">Rekomendasi</string>
+    <string name="rekomendasi_konten">Recommendation here</string>
+    <string name="hasil_analisis_title">Hasil Analisis</string>
 
 </resources>

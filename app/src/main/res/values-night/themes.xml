@@ -2,10 +2,11 @@
     <!-- Base application theme. -->
     <style name="Theme.StuntShield" parent="Theme.Material3.DayNight">
         <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/poppins</item>
     </style>
 
     <style name="basicText">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="basicText.bold">
@@ -15,7 +16,7 @@
     <style name="googleButton">
         <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="android:text">Masuk dengan Google</item>
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">@color/high_status</item>
         <item name="android:textSize">14sp</item>
         <item name="android:padding">10dp</item>
         <item name="cornerRadius">10dp</item>

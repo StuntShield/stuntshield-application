@@ -104,7 +104,6 @@ class AnalyzeFragment : Fragment() {
             putExtra("weight", weight)
         }
         startActivity(intent)
-        requireActivity().finish()
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -123,6 +122,23 @@ class AnalyzeFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun resetInputData() {
+        binding.etYears.text.clear()
+        binding.etMonths.text?.clear()
+        binding.etDays.text?.clear()
+        binding.etWeight.text.clear()
+        binding.etHeight.text.clear()
+        showLoading(false)
+        selectedGender = null
+        selectedCardView?.setBackgroundResource(R.drawable.card_border_inactive)
+        selectedCardView = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        resetInputData()
     }
 
     override fun onDestroyView() {

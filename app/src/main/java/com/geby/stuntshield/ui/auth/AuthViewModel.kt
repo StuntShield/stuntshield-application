@@ -28,11 +28,12 @@ class AuthViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    var initialCheck = true
     var isGoogleSignIn: Boolean = false
 
     fun googleSignIn(context: Context, serverClientId: String) {
         _isLoading.value = true
-        isGoogleSignIn = true // Set flag to true for Google Sign-In
+        isGoogleSignIn = true
 
         val credentialManager = CredentialManager.create(context)
 
@@ -54,7 +55,7 @@ class AuthViewModel : ViewModel() {
                 handleSignIn(result)
             } catch (e: GetCredentialException) {
                 _user.value = Result.failure(e)
-                isGoogleSignIn = false // Reset flag on failure
+                isGoogleSignIn = false
             } finally {
                 _isLoading.value = false
             }
@@ -100,7 +101,10 @@ class AuthViewModel : ViewModel() {
         if (currentUser != null) {
             _user.value = Result.success(currentUser)
         } else {
-            _user.value = Result.failure(Exception("User not logged in"))
+            if (!initialCheck) {
+                _user.value = Result.failure(Exception("User not logged in"))
+            }
+            initialCheck = false
         }
     }
 
@@ -119,7 +123,7 @@ class AuthViewModel : ViewModel() {
 
     fun registerUser(username: String, email: String, password: String) {
         _isLoading.value = true
-        isGoogleSignIn = false // Set flag to false for email/password registration
+        isGoogleSignIn = false
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
