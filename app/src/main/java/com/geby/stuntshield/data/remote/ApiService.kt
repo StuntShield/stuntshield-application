@@ -21,6 +21,6 @@ interface ApiService {
         @Part("berat_badan") berat_badan: RequestBody
     ): AnalyzeResponse
 
-    @GET("articles")
+    @GET("articles?perPage=10")
     fun getArticles(): Call<ArticleResponse>
 }

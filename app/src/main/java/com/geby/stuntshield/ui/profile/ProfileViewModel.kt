@@ -5,17 +5,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.geby.stuntshield.data.local.pref.UserPreference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.UUID
 
-class ProfileViewModel (private val userPreference: UserPreference): ViewModel() {
+class ProfileViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -28,9 +25,6 @@ class ProfileViewModel (private val userPreference: UserPreference): ViewModel()
 
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val currentUser: FirebaseUser? = firebaseAuth.currentUser
-
-    private val _navigateToWelcome = MutableLiveData<Boolean>()
-    val navigateToWelcome: LiveData<Boolean> = _navigateToWelcome
 
     private val _username = MutableLiveData<String>()
     val username: LiveData<String> = _username
@@ -46,10 +40,6 @@ class ProfileViewModel (private val userPreference: UserPreference): ViewModel()
         get() = _profilePictureUri
 
     private val storageRef = FirebaseStorage.getInstance().reference
-
-    private val _isLoggedOut = MutableLiveData<Boolean>()
-    val isLoggedOut: LiveData<Boolean> = _isLoggedOut
-
 
     init {
         getUser()
@@ -135,24 +125,6 @@ class ProfileViewModel (private val userPreference: UserPreference): ViewModel()
 //            Log.e(TAG, "Failed to load user data: ${e.message}")
 //        }
 //    }
-
-        fun logout() {
-            _isLoading.value = true
-            _isError.value = false
-
-            viewModelScope.launch {
-                try {
-                    userPreference.logout()
-                    _isLoggedOut.value = true
-                    _isLoading.value = false
-                } catch (e: Exception) {
-                    _isLoading.value = false
-                    _isError.value = true
-                    _errorMessage.value = "Failed to log out: ${e.message}"
-                    Log.e(TAG, "Failed to log out: ${e.message}")
-                }
-            }
-        }
 
         companion object {
             private const val TAG = "ProfileViewModel"

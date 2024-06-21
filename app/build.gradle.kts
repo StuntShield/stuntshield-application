@@ -17,7 +17,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "BASE_URL", "\"https://stuntshield-v1-u6viyjhgqa-uc.a.run.app/\"")
+        buildConfigField("String", "BASE_URL", "\"https://stuntshield-v1-s35fwfvnna-et.a.run.app/\"")
     }
 
     buildTypes {
@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.circleimageview)
 
     // firebase
     implementation(platform(libs.firebase.bom))

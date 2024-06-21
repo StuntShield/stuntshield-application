@@ -36,7 +36,6 @@
     <string name="register_success_title">Register Berhasil</string>
     <string name="login_failed_msg">Email atau password salah. Silahkan coba lagi</string>
     <string name="register_failed_msg">Email ini sudah terdaftar di akun lain</string>
-    <string name="register_success_msg">Akun ada berhasil dibuat. Silahkan login</string>
     <string name="welcome_message">Welcome to</string>
 
     <string name="user_avatar">User Avatar</string>

@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.imageview.ShapeableImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_user"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
@@ -118,7 +118,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="20dp"
                         android:textSize="12sp"
-                        android:text="30 Desember 2024"
+                        android:text="30 Mei 2024"
                         app:layout_constraintStart_toEndOf="@+id/tv_created_date"
                         app:layout_constraintTop_toTopOf="@+id/tv_created_date"/>
 

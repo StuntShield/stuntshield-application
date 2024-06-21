@@ -29,7 +29,7 @@ class AnalyzeFragment : Fragment() {
 
     private val binding get() = _binding!!
     private val viewModel: AnalyzeViewModel by viewModels {
-        ViewModelFactory.getInstance(requireContext())
+        ViewModelFactory.getInstance()
     }
 
     override fun onCreateView(

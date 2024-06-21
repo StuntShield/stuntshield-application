@@ -38,15 +38,8 @@ class RegisterActivity : AppCompatActivity() {
                 it.fold(
                     onSuccess = { user ->
                         Log.d("Register", "${user?.displayName} berhasil registrasi.")
-                        AlertDialog.Builder(this).apply {
-                            setTitle(getString(R.string.register_success_title))
-                            setMessage(getString(R.string.register_success_msg))
-                            setPositiveButton("OK") { _, _ ->
-                                updateUi(user)
-                            }
-                            create()
-                            show()
-                        }
+                        updateUi(user)
+
                     },
                     onFailure = { exception ->
                         Log.w("Register", "Register gagal")

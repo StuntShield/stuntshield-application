@@ -1,6 +1,7 @@
 package com.geby.stuntshield.ui.auth
 
 import android.content.Context
+import androidx.credentials.ClearCredentialStateRequest
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
@@ -62,6 +63,14 @@ class AuthViewModel : ViewModel() {
         }
     }
 
+    fun signOut(context: Context, onSignOutComplete: () -> Unit) {
+        viewModelScope.launch {
+            val credentialManager = CredentialManager.create(context)
+            auth.signOut()
+            credentialManager.clearCredentialState(ClearCredentialStateRequest())
+            onSignOutComplete()
+        }
+    }
     private fun handleSignIn(result: GetCredentialResponse) {
         when (val credential = result.credential) {
             is CustomCredential -> {

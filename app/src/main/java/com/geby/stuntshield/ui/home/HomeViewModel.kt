@@ -44,8 +44,6 @@ class HomeViewModel : ViewModel() {
         loadUserProfile()
     }
 
-
-
     fun showArticleList() {
         _isLoading.value = true
         _isError.value = false
