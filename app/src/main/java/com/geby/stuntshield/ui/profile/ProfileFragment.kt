@@ -84,7 +84,6 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        //Edit Photo
         binding.floatingActionButton.setOnClickListener {
             if (allPermissionsGranted()) {
                 pickImageFromGallery()
@@ -93,7 +92,6 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        //userdata
         profileViewModel.username.observe(viewLifecycleOwner) { username ->
             binding.tvUsername.text = username
         }

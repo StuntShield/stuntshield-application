@@ -58,7 +58,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     }
 
     companion object {
-        @kotlin.jvm.Volatile
+        @Volatile
         private var INSTANCE: UserPreference? = null
         private val USER_ID = stringPreferencesKey("userId")
         private val USER_NAME = stringPreferencesKey("user_name")
